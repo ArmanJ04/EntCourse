@@ -6,23 +6,26 @@ function validateForm(event) {
     var contactEmail = document.getElementById("contactEmail");
     var contactMessage = document.getElementById("contactMessage");
 
-    if (contactName.value.trim() === "") {
-        alert("Өтінемін, Атыңызды жазыңыз!");
+    if (!/^[A-Za-z]+$/.test(contactName.value)) {
+        alert("Өтінемін, Атыңызды тек әріптерден тұратын сөздермен жазыңыз!");
         return;
     }
     
-    if (contactSurname.value.trim() === "") {
-        alert("Өтінемін, Жөніңізді жазыңыз!");
+    if (!/^[A-Za-z]+$/.test(contactSurname.value)) {
+        alert("Өтінемін, Жөніңізді тек әріптерден тұратын сөздермен жазыңыз!");
         return;
     }
     
-    if (contactNumber.value.trim() === "") {
-        alert("Өтінемін, номеріңізді жазыңыз!");
+    if (!/^\d+$/.test(contactNumber.value)) {
+        alert("Өтінемін, номеріңіз тек сандардан тұруы керек!");
         return;
     }
     
     if (contactEmail.value.trim() === "") {
         alert("Өтінемін, почтаңызды жазыңыз!");
+        return;
+    } else if (!isValidEmail(contactEmail.value)) {
+        alert("Өтінемін, дұрыс пошта мекенжайын енгізіңіз!");
         return;
     }
     
@@ -32,6 +35,11 @@ function validateForm(event) {
     }
     
     document.querySelector(".contactForm").submit();
+}
+
+function isValidEmail(email) {
+    var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
 }
 
 document.querySelector(".contactForm").addEventListener("submit", validateForm);
